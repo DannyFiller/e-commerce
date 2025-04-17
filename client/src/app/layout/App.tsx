@@ -1,13 +1,11 @@
-import { useEffect, useState } from "react"
-import { Product } from "../models/product";
-import Catalog from "../features/catalog/Catalog";
+import { useState } from "react";
 import NavBar from "./NavBar";
 import './styles.css'
 import { Box, Container, createTheme, CssBaseline, ThemeProvider } from "@mui/material";
-
+import { Outlet } from "react-router-dom";
 
 function App() {
-  const [products,setProducts] = useState<Product[]>([]);
+ 
   const [darkMode,setDarkMode] = useState(false);
   // const darkMode = true;
   
@@ -23,13 +21,6 @@ function App() {
   const toggleDarkMode = () =>{
     setDarkMode(!darkMode);
   }
-
-  useEffect(() => {
-    fetch('https://localhost:5001/api/products')
-      .then(response => response.json())
-      .then(data => setProducts(data));
-  }, [])
-
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -42,7 +33,7 @@ function App() {
           :'radial-gradient(circle,#baecf9,#f0f9ff)'
         }}>  
           <Container maxWidth='xl' sx={{mt:8}}>
-            <Catalog products={products} />
+            <Outlet/>
           </Container>
         </Box>
        
